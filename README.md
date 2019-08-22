@@ -41,11 +41,26 @@ for_phrase_sentiment_classification_score = SUM(for_phrase_sentiment_classificat
 ```
 phrase_sentiment_classification_score = IF(POS="w",for_phrase_sentiment_classification_score)
 ```
-## 1.2 [Text database on phrase level](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S2_Table.xlsx) 
-sheet1_name: *term*, sheet2_name: *POS*, sheet3_name: *so*, sheet4_name: *sentiment classification score*
+## 1.2 Text database on phrase level
+[sheet1_name: *phrase*, sheet2_name: *time*, sheet3_name: *character*, sheet4_name: *character & SO*, sheet5_name: *place*, sheet6_name: *place & SO*](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S2_Table.xlsx) 
 
-As a transitional level between the previous word level and the latter time level, the phrase-level framework assigns the recalculated value of POS and SO value to a relevant phrase（see S2 Table.）
+The phrase-level framework assigns the recalculated value of POS and SO value to a relevant phrase. These values can be applied to the next time level because the sequence number of phrases is defined as read-time. Specific data mining approaches for the following parameters, i.e. places, story-time, and sentiment classification scores are valuable.
 
+### 1)*phrase*  
+*sentiment_classification_score(SCS)* inherits the value of *phrase_sentiment_classification_score* in **1.1** *Text database on word level* **4)** *sentiment classification score*  
+### 2)*time*  
+storytime_day
+readtime_phrase
+### 3)*character*  
+
+### 4)*character & SO*  
+
+### 5)*place*  
+
+### 6)*place & SO*  
+
+
+## 1.3 Chronicle of Bai Xingjian
 we observe that Bai Xingjian was indeed a typical official who passed the imperial examination, entered the bureaucracy in the middle of the Tang dynasty, and had lived in Chang’an for a long time (Fig 21, S3 Table).
 
 After tracing the author’s experience, we observe that Bai Xingjian was indeed a typical official who passed the imperial examination, entered the bureaucracy in the middle of the Tang dynasty, and had lived in Chang’an for a long time (S3 Table)
