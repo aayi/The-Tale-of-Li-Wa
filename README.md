@@ -62,6 +62,12 @@ protected void onDestroy() {
 8、引用
 > 第一行引用文字  
 > 第二行引用文字
- ———————————————— 
-版权声明：本文为CSDN博主「snowzhao210」的原创文章，遵循CC 4.0 by-sa版权协议，转载请附上原文出处链接及本声明。
-原文链接：https://blog.csdn.net/qq_31796651/article/details/80803599
+#Reference
+[reference1]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/reference1.zip)
+[reference2]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/reference2.zip)
+[reference3]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/reference3.zip)
+[reference4]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/reference4.zip)
+[ArcGIS Desktop. Version 10.2.2]( https://arcgis_desktop.en.downloadastro.com/old_versions/)
+[IDW]( http://desktop.arcgis.com/en/arcmap/latest/tools/3d-analyst-toolbox/idw.htm)
+[Linear Density](http://desktop.arcgis.com/en/arcmap/10.3/tools/spatial-analyst-toolbox/line-density.htm)
+
