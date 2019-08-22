@@ -8,32 +8,36 @@ This paper uses digital technology and spatial narrative theory to represent the
 
 # 1. Structuring
 ## 1.1 [Text database on word level](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S1_Table.xlsx) 
-sheet1_name: term, sheet2_name: POS, sheet3_name: so, sheet4_name: sentiment classification score. 
+sheet1_name: *term*, sheet2_name: *POS*, sheet3_name: *so*, sheet4_name: *sentiment classification score*
 
-we manually create this database including terms (unigram), parts of speech (POS), sentiment orientations (SO) value, and sentiment shifters by Excel.  
-1)term  
+we manually create this database including terms (unigram), parts of speech (POS), sentiment orientations (SO) value, and sentiment shifters by Excel. 
+
+1)*term*  
 Reference dictionary: [国学大师](http://www.guoxuedashi.com/)  
 Reference Word Segmentation platform: [语料库在线](http://www.aihanyu.org/cncorpus/CpsWParser.aspx)  
-2)POS  
+
+2)*POS*  
 
 Tag  | n  | nt  | nd  | nl  | nh  | nhf  | nhs  | ns  | nn  | ni  | no  | nhh  | v  | vd  | vl  | vu  | a  | f  | m  | q  | d  | r  | p  | c  | u  | e  | o  | i  | w      
 |:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---
  pos  | Noun-general  | Noun-time | Noun-direction | Noun-location | Noun-human | noun-last name | noun-first name | Noun-space | Noun-nation | Noun-institution | Noun-offical  | noun-human’s pronoun | Verb | Verb- direction | Verb-linking | Verb-auxiliary | adjective | difference | numeral | quantity  | adverb  | pronoun | preposition | conjunction | auxiliary | exclamation | onaomatopoeia | idiom | punctuation 
  
-3)so  
-LIU_SO value MA_SO value
-4)sentiment classification score  
+3)*so*  
+We actually have done two rounds of SO assignment(*LIU_SO value* and *MA_SO value*).  
+The percentage of consent of two rounds of SO value assignment is 81.5%
 
+4)*sentiment classification score*  
 
+```
+SO_value_effective = IF(sentiment_shifter_-1=-1,SO value * sentiment_shifter_-1,SO value)   
 
+for_phrase_sentiment_classification_score = IF(POS<>"w",SO_value_effective,"")  
+for_phrase_sentiment_classification_score = SUM(for_phrase_sentiment_classification_score))#tip: Ctrl+G-->“Null(k)”-->∑ (Automatic summation) #
 
-includes terms (unigram), parts of speech (POS), sentiment orientations (SO) value, and sentiment shifters.
-
-
-
- 
- 
-we manually create a text database that includes terms (unigram) [15], parts of speech (POS) [15], sentiment orientations (SO) value, and sentiment shifters [17] (see S1 Table)
+phrase_sentiment_classification_score = IF(POS="w",for_phrase_sentiment_classification_score)
+```
+## 1.2 [Text database on phrase level](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S2_Table.xlsx) 
+sheet1_name: *term*, sheet2_name: *POS*, sheet3_name: *so*, sheet4_name: *sentiment classification score*
 
 As a transitional level between the previous word level and the latter time level, the phrase-level framework assigns the recalculated value of POS and SO value to a relevant phrase（see S2 Table.）
 
