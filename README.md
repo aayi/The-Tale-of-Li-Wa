@@ -37,7 +37,7 @@ SO_value_effective = IF(sentiment_shifter_-1=-1,SO value * sentiment_shifter_-1,
 for_phrase_sentiment_classification_score = IF(POS<>"w",SO_value_effective,"")  
 ```
 for_phrase_sentiment_classification_score = SUM(for_phrase_sentiment_classification_score))  
-#tip: Ctrl+G-->"Null(k)"-->"∑" (Automatic summation) #
+#tip: Ctrl+ G--> "Null(k)"--> "∑"( Automatic summation) #
 ```
 phrase_sentiment_classification_score = IF(POS="w",for_phrase_sentiment_classification_score)
 ```
@@ -47,23 +47,35 @@ phrase_sentiment_classification_score = IF(POS="w",for_phrase_sentiment_classifi
 The phrase-level framework assigns the recalculated value of POS and SO value to a relevant phrase. These values can be applied to the next time level because the sequence number of phrases is defined as read-time. Specific data mining approaches for the following parameters, i.e. places, story-time, and sentiment classification scores are valuable.
 
 ### 1)*phrase*  
-*sentiment_classification_score(SCS)* inherits the value of *phrase_sentiment_classification_score* in **1.1** *Text database on word level* **4)** *sentiment classification score*  
+*sentiment_classification_score(SCS)* inherits the value of [*phrase_sentiment_classification_score*]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/README.md#4sentiment-classification-score)  
 ### 2)*time*  
-storytime_day
-readtime_phrase
+*storytime_day*  
+Noun-time (nt.) such as the Tianbao period (天宝), 10 years later (十年), more than a month later (月余), and another day (他日), which is 2.7% of the total texts, are used to simulate the whole story-time in an interval of every single day. The entire story timeline we constructed from the texts started from when Student Zheng entered Chang’an in 747A.D. and ended around the happy ending of the novel, that is, the year Zheng is appointed to become an officer is 754 A.D., and Li Wa is conferred the title Lady Qian‘guo (汧国夫人) in 775 A.D. The story-time is defined by the exact time record of the story that occurred during the period of 742 to 746 A.D.(天宝年间), Bai Xingjian wrote the tale in August of 795 A.D. (贞元中……乙亥岁秋八月) and the nt. phrases. 
+
+*readtime_phrase*  
+the sequence number of phrases is defined as read-time  
 ### 3)*character*  
-
+*character1*， *character2*， *character3*， and *character4* contain up to 4 characters in each phrase.
 ### 4)*character & SO*  
-
+```
+ZHENG_SCS = IF(character1="郑生" or character2="郑生" or character3="郑生" or character4="郑生",sentiment_classification_score(SCS),"")  
+```
+ZHENG_so_IF= SUM(J15ZHENG_SCS)
+#tip: ```K15=SUM(J$15:J15), K18=SUM(J$15:J18), K50=SUM(J$15:J50)```#
 ### 5)*place*  
-
+A noun-space (ns.) such as Chang’an City, and specific place names inside the city such as the Buzheng Ward (布政坊) and Xingyuan Garden (杏园) (located in Tongshan Ward [通善坊]), account for 1.1% of the total texts tagged as the level of residential wards and streets directly mentioned (e.g., Buzheng Ward) or most likely to be located (e.g., Tongshan Ward). These uniformly fine-grained places are applied to cover the corresponding story phrases of which plot takes place in these places.
 ### 6)*place & SO*  
-
+```
+Anyi_SCS = IF(ward_in_chang'an="安邑坊",sentiment_classification_score(SCS),"")  
+```
+Anyi_so_IF= SUM(Anyi_SCS)
+#tip: ```I526=SUM(H$526:H526), I535=SUM(H$526:H535), I606=SUM(H$526:H606)```#
 
 ## 1.3 Chronicle of Bai Xingjian
-we observe that Bai Xingjian was indeed a typical official who passed the imperial examination, entered the bureaucracy in the middle of the Tang dynasty, and had lived in Chang’an for a long time (Fig 21, S3 Table).
+[sheet1_name: *circumstance*, sheet2_name: *poems*](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S3_Table.xlsx) 
+it is bassed on 4. 黄大宏. [A chronicle of Bai Xingjian]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/README.md#4sentiment-classification-score)  
+*circumstance_orientation_value* is assigned interpreted manually based on *Detail* 
 
-After tracing the author’s experience, we observe that Bai Xingjian was indeed a typical official who passed the imperial examination, entered the bureaucracy in the middle of the Tang dynasty, and had lived in Chang’an for a long time (S3 Table)
 ## 1.2 Arcgis
 
 # 2. Visualization in time level
