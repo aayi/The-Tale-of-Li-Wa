@@ -1,15 +1,49 @@
 # The-Tale-of-Li-Wa
 This paper uses digital technology and spatial narrative theory to represent the narrative and narrative of experience of a Chinese classic novel, The Tale of Li Wa, which has been favored by literature and historians in the past approximately 900 years. To help contemporary readers understand this classic narrative and its context more wholly and deeply, the spatio-temporal information, derived from its text, its author, and readers, is extracted and fused to map the instantaneous spatial pattern perceived by readers in the flow of reading time. These comparative patterns form a logical loop of “time–space–time–space” that helps contemporary readers once again observe the literary and historic value through spatio-temporal narratives.
-一、标题写法：
-第一种方法：
-1、在文本下面加上 等于号 = ，那么上方的文本就变成了大标题。等于号的个数无限制，但一定要大于0个哦。。
-2、在文本下面加上 下划线 - ，那么上方的文本就变成了中标题，同样的 下划线个数无限制。
-3、要想输入=号，上面有文本而不让其转化为大标题，则需要在两者之间加一个空行。
-另一种方法：（推荐这种方法；注意⚠️中间需要有一个空格）
-关于标题还有等级表示法，分为六个等级，显示的文本大小依次减小。不同等级之间是以井号  #  的个数来标识的。一级标题有一个 #，二级标题有两个# ，以此类推。
-例如：
-# Excel 
-# Sigmaplot 
+# 0. Digitization
+1. [Electronically scanned version]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S1_File.pdf) of *The Tale of Li Wa* in *Complete Library in Four Sections* 四库全书
+2. [Proofreading Text Edition]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/??.txt) of *The Tale of Li Wa* based on the version on [中国哲学书电子化计划（CText）]( https://ctext.org/wiki.pl?if=en&chapter=114571&remap=gb)
+3. [*Raster map of Tang Chang'an with location information*](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S2_File.zip). It can be added in Arcmap/Qgis. It is an archaeological map in 「数字历史黄河·城市聚落资料集」from Remote Sensing Analysis of Historical Landscape and GIS Laboratory, Northwest Institute of Historical Environment and Socio-Economic Development, Shaanxi Normal University 陕西师范大学西北历史环境与经济社会发展研究院历史景观遥感分析与GIS实验室
+4. 黄大宏. [A chronicle of Bai Xingjian](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/31白行简年谱_黄大宏.pdf) 
+
+# 1. Structuring
+## 1.1 [Text database on word level](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S1_Table.xlsx) 
+sheet1_name: term, sheet2_name: POS, sheet3_name: so, sheet4_name: sentiment classification score. 
+
+we manually create this database including terms (unigram), parts of speech (POS), sentiment orientations (SO) value, and sentiment shifters by Excel.  
+1)term  
+Reference dictionary: [国学大师](http://www.guoxuedashi.com/)  
+Reference Word Segmentation platform: [语料库在线](http://www.aihanyu.org/cncorpus/CpsWParser.aspx)  
+2)POS  
+
+Tag  | n  | nt  | nd  | nl  | nh  | nhf  | nhs  | ns  | nn  | ni  | no  | nhh  | v  | vd  | vl  | vu  | a  | f  | m  | q  | d  | r  | p  | c  | u  | e  | o  | i  | w      
+|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---
+ pos  | Noun-general  | Noun-time | Noun-direction | Noun-location | Noun-human | noun-last name | noun-first name | Noun-space | Noun-nation | Noun-institution | Noun-offical  | noun-human’s pronoun | Verb | Verb- direction | Verb-linking | Verb-auxiliary | adjective | difference | numeral | quantity  | adverb  | pronoun | preposition | conjunction | auxiliary | exclamation | onaomatopoeia | idiom | punctuation 
+ 
+3)so  
+LIU_SO value MA_SO value
+4)sentiment classification score  
+
+
+
+
+includes terms (unigram), parts of speech (POS), sentiment orientations (SO) value, and sentiment shifters.
+
+
+
+ 
+ 
+we manually create a text database that includes terms (unigram) [15], parts of speech (POS) [15], sentiment orientations (SO) value, and sentiment shifters [17] (see S1 Table)
+
+As a transitional level between the previous word level and the latter time level, the phrase-level framework assigns the recalculated value of POS and SO value to a relevant phrase（see S2 Table.）
+
+we observe that Bai Xingjian was indeed a typical official who passed the imperial examination, entered the bureaucracy in the middle of the Tang dynasty, and had lived in Chang’an for a long time (Fig 21, S3 Table).
+
+After tracing the author’s experience, we observe that Bai Xingjian was indeed a typical official who passed the imperial examination, entered the bureaucracy in the middle of the Tang dynasty, and had lived in Chang’an for a long time (S3 Table)
+## 1.2 Arcgis
+
+# 2. Visualization in time level
+## Sigmaplot 
 # Gis
 # Arcscene
 # Gis
@@ -68,11 +102,11 @@ protected void onDestroy() {
 > 第一行引用文字  
 > 第二行引用文字
 # Reference
+[ArcGIS Desktop. Version 10.2.2]( https://arcgis_desktop.en.downloadastro.com/old_versions/)
+[IDW]( http://desktop.arcgis.com/en/arcmap/latest/tools/3d-analyst-toolbox/idw.htm)
+[Linear Density](http://desktop.arcgis.com/en/arcmap/10.3/tools/spatial-analyst-toolbox/line-density.htm)
 [reference1]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/reference1.zip)
 [reference2]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/reference2.zip)
 [reference3]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/reference3.zip)
 [reference4]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/reference4.zip)
-[ArcGIS Desktop. Version 10.2.2]( https://arcgis_desktop.en.downloadastro.com/old_versions/)
-[IDW]( http://desktop.arcgis.com/en/arcmap/latest/tools/3d-analyst-toolbox/idw.htm)
-[Linear Density](http://desktop.arcgis.com/en/arcmap/10.3/tools/spatial-analyst-toolbox/line-density.htm)
 
