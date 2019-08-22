@@ -3,37 +3,42 @@ This paper uses digital technology and spatial narrative theory to represent the
 # 0. Digitization
 1. [Electronically scanned version]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S1_File.pdf) of *The Tale of Li Wa* in *Complete Library in Four Sections* 四库全书
 2. [Proofreading Text Edition]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/??.txt) of *The Tale of Li Wa* based on the version on [中国哲学书电子化计划（CText）]( https://ctext.org/wiki.pl?if=en&chapter=114571&remap=gb)
-3. [*Raster map of Tang Chang'an with location information*](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S2_File.zip). It can be added in Arcmap/Qgis. It is an archaeological map in 「数字历史黄河·城市聚落资料集」from Remote Sensing Analysis of Historical Landscape and GIS Laboratory, Northwest Institute of Historical Environment and Socio-Economic Development, Shaanxi Normal University 陕西师范大学西北历史环境与经济社会发展研究院历史景观遥感分析与GIS实验室
+3. [*Raster map of Tang Chang'an with location information*](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S2_File.zip).  
+It can be added in Arcmap/Qgis. It is an archaeological map in 「数字历史黄河·城市聚落资料集」from Remote Sensing Analysis of Historical Landscape and GIS Laboratory, Northwest Institute of Historical Environment and Socio-Economic Development, Shaanxi Normal University 陕西师范大学西北历史环境与经济社会发展研究院历史景观遥感分析与GIS实验室
 4. 黄大宏. [A chronicle of Bai Xingjian](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/31白行简年谱_黄大宏.pdf) 
 
 # 1. Structuring
-## 1.1 [Text database on word level](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S1_Table.xlsx) 
-sheet1_name: *term*, sheet2_name: *POS*, sheet3_name: *so*, sheet4_name: *sentiment classification score*
+## 1.1 Text database on word level
+[sheet1_name: *term*, sheet2_name: *POS*, sheet3_name: *so*, sheet4_name: *sentiment classification score*](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S1_Table.xlsx) 
 
 we manually create this database including terms (unigram), parts of speech (POS), sentiment orientations (SO) value, and sentiment shifters by Excel. 
 
-1)*term*  
+### 1)*term*  
+Criteria: broadening, dictionary, and semantic transparency  
 Reference dictionary: [国学大师](http://www.guoxuedashi.com/)  
 Reference Word Segmentation platform: [语料库在线](http://www.aihanyu.org/cncorpus/CpsWParser.aspx)  
 
-2)*POS*  
+### 2)*POS*  
 
 Tag  | n  | nt  | nd  | nl  | nh  | nhf  | nhs  | ns  | nn  | ni  | no  | nhh  | v  | vd  | vl  | vu  | a  | f  | m  | q  | d  | r  | p  | c  | u  | e  | o  | i  | w      
 |:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---
  pos  | Noun-general  | Noun-time | Noun-direction | Noun-location | Noun-human | noun-last name | noun-first name | Noun-space | Noun-nation | Noun-institution | Noun-offical  | noun-human’s pronoun | Verb | Verb- direction | Verb-linking | Verb-auxiliary | adjective | difference | numeral | quantity  | adverb  | pronoun | preposition | conjunction | auxiliary | exclamation | onaomatopoeia | idiom | punctuation 
  
-3)*so*  
-We actually have done two rounds of SO assignment(*LIU_SO value* and *MA_SO value*).  
+### 3)*so*  
+The assignment of the SO value is as follows: each positive sentiment expression in the novel such as laugh (欢笑) (v.) and magnificent (瑰奇) (a.) is given an SO value of +1 (172 in total), and each negative sentiment expression such as whimper (呜咽) (v.) and poor (贫窭) (a.) is assigned a SO value of −1 (177 in total).  
+We do two rounds of sentiment orientations (SO) value assignment(*LIU_SO value* and *MA_SO value*).  
 The percentage of consent of two rounds of SO value assignment is 81.5%
 
-4)*sentiment classification score*  
+### 4)*sentiment classification score*  
 
 ```
 SO_value_effective = IF(sentiment_shifter_-1=-1,SO value * sentiment_shifter_-1,SO value)   
 
 for_phrase_sentiment_classification_score = IF(POS<>"w",SO_value_effective,"")  
-for_phrase_sentiment_classification_score = SUM(for_phrase_sentiment_classification_score))#tip: Ctrl+G-->“Null(k)”-->∑ (Automatic summation) #
-
+```
+for_phrase_sentiment_classification_score = SUM(for_phrase_sentiment_classification_score))  
+#tip: Ctrl+G-->"Null(k)"-->"∑" (Automatic summation) #
+```
 phrase_sentiment_classification_score = IF(POS="w",for_phrase_sentiment_classification_score)
 ```
 ## 1.2 [Text database on phrase level](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S2_Table.xlsx) 
