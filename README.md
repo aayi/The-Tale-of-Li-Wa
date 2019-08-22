@@ -1,5 +1,7 @@
 # The-Tale-of-Li-Wa
-This paper uses digital technology and spatial narrative theory to represent the narrative and narrative of experience of a Chinese classic novel, [*The Tale of Li Wa*]( https://github.com/aayi/The-Tale-of-Li-Wa), which has been favored by literature and historians in the past approximately 900 years. To help contemporary readers understand this classic narrative and its context more wholly and deeply, the spatio-temporal information, derived from its text, its author, and readers, is extracted and fused to map the instantaneous spatial pattern perceived by readers in the flow of reading time. These comparative patterns form a logical loop of “time–space–time–space” that helps contemporary readers once again observe the literary and historic value through spatio-temporal narratives.
+This paper uses digital technology and spatial narrative theory to represent the narrative and narrative of experience of a Chinese classic novel, [*The Tale of Li Wa*]( https://en.m.wikipedia.org/wiki/The_Tale_of_Li_Wa), which has been favored by literature and historians in the past approximately 900 years. To help contemporary readers understand this classic narrative and its context more wholly and deeply, the spatio-temporal information, derived from its text, its author, and readers, is extracted and fused to map the instantaneous spatial pattern perceived by readers in the flow of reading time. These comparative patterns form a logical loop of “time–space–time–space” that helps contemporary readers once again observe the literary and historic value through spatio-temporal narratives.
+
+![*Flows (black arrows) of variables and comparisons (white arrows) among variables in the logical loop of time–space-time–space.*]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/Fig2.tif)
 # 0. Digitization
 1. [Electronically scanned version]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S1_File.pdf) of *The Tale of Li Wa* in *Complete Library in Four Sections* 四库全书
 2. [Proofreading Text Edition]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/??.txt) of *The Tale of Li Wa* based on the version on [中国哲学书电子化计划（CText）]( https://ctext.org/wiki.pl?if=en&chapter=114571&remap=gb)
@@ -44,7 +46,7 @@ phrase_sentiment_classification_score = IF(POS="w",for_phrase_sentiment_classifi
 ## 1.2 Text database on phrase level
 [sheet1_name: *phrase*, sheet2_name: *time*, sheet3_name: *character*, sheet4_name: *character & SO*, sheet5_name: *place*, sheet6_name: *place & SO*](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S2_Table.xlsx) 
 
-The phrase-level framework assigns the recalculated value of POS and SO value to a relevant phrase. These values can be applied to the next time level because the sequence number of phrases is defined as read-time. Specific data mining approaches for the following parameters, i.e. places, story-time, and sentiment classification scores are valuable.
+The phrase-level framework assigns the recalculated value of POS and SO value to a relevant phrase by Excel. These values can be applied to the next time level because the sequence number of phrases is defined as read-time. Specific data mining approaches for the following parameters, i.e. places, story-time, and sentiment classification scores are valuable.
 
 ### 1)*phrase*  
 *sentiment_classification_score(SCS)* inherits the value of [*phrase_sentiment_classification_score*]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/README.md#4sentiment-classification-score)  
@@ -73,12 +75,73 @@ Anyi_so_IF= SUM(Anyi_SCS)
 
 ## 1.3 Chronicle of Bai Xingjian
 [sheet1_name: *circumstance*, sheet2_name: *poems*](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S3_Table.xlsx) 
-it is bassed on [A chronicle of Bai Xingjian](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/31白行简年谱_黄大宏.pdf) by 黄大宏
+it is bassed on [A chronicle of Bai Xingjian](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/31白行简年谱_黄大宏.pdf) by 黄大宏 in Excel
 
-*circumstance_orientation_value* is assigned manually based on *Detail* 
+*circumstance_orientation_value* is assigned manually based on *Detail*   
 
-## 1.2 Arcgis
+Circumstances_of_Bai = SUM(circumstance_orientation_value)
+#tip: ```E2=SUM($D$2:D2), E10=SUM($D$2:D10), E52=SUM($D$2:D52)```#  
+```
+circumstance_orientation_value_chang'an = IF(Place="长安",circumstance_orientation_value,"")  
+```
+## 1.4 Spatial syntax of Chang'an
+Vector file of street of chang'an is created by Autocad and then [imported into Depthmap](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S4_File.graph)(a technology used to analyze the spatial layouts, and human activity patterns in urban areas)  
 
+![Integration analysis of the road network of Chang’an city by Depthmap]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/Fig4.tif)  
+  
+The degree of integration (a space syntax parameter) reflects the ease of access to streets, that is, it may determine which street is more likely to attract Zheng, as an explorer of Chang’an.  
+## 1.5 Spatially embedded semantic data
+Combine Text database with spatial data by Arcmap主要将文本中的数据导入GIS形成点数据、线数据及面数据。
+### 1)Polygon
+create shapefile of **Polygon**( Ward& Palace) based on[*Raster map of Tang Chang'an with location information*](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S2_File.zip)  
+### 2)point(*shikong-vt.shp*)
+create **Point**( centroid of **Polygon**)--> add field "ward_in_chang'an" and fill in  
+[Text database on phrase level](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S2_Table.xlsx) is joined with **Point** by field "ward_in_chang'an"
+依据GIS功能，将长安GIS中的坊和皇宫等面数据进行质心计算，得出每个面数据的质心。将文本数据库中的每个坊里所对应的信息通过GIS文件连接导入GIS数据集中，其中点数据包括以下信息：每个坊信息的文本句数、坊里的情感累加值、坊里人群活动的阶级值等信息。以便后续的插值分析计算。
+### 3)polyline线数据
+依托空间句法软件计算长安每个街道的可达性，并结合最短路径原则将小说人物在长安城中的活动轨迹进行模拟，并将路径在GIS中进行绘制。将该线数据进行相应的数据录入，包括：小说人物、人物身份及阶级等信息。
+
+
+
+# 2. Representation
+## 2.1 Time 
+![Trajectory of the integral function of SO value by sigmaplot]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/Fig5.tif)  
+create graph--> simple straight line--> data format--> XY Pair--> select data   
+data for X: *storytime_day*  data for Y: *SO_value_Integral_function(so_IF)* 
+
+![Trajectory of the integral function of SO value and characters’ appearance by sigmaplot]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/Fig6.tif)  
+create graph--> multiple straight line--> data format--> XY Pair--> select data   
+data for X: *storytime_day*  data for Y: *SO_value_Integral_function(so_IF)*   
+data for X: *storytime_day*  data for Y: *ZHENG_so_IF*  
+data for X: *storytime_day*  data for Y: *LI_Wa_so_IF*   
+data for X: *storytime_day*  data for Y: *LI_Wa's_mother_so_IF*   
+data for X: *storytime_day*  data for Y: *ZHENG's_father_so_IF*   
+
+![Trajectory of the integral function of SO value and places’ appearance by sigmaplot]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/Fig7.tif)  
+create graph--> simple straight line--> data format--> XY Pair--> select data   
+data for X: *storytime_day*  data for Y: *SO_value_Integral_function(so_IF)*  
+
+add new plot--> graph types--> vertical bar chart--> graph styles--> grouped bars--> data formats--> many Y   
+data for Y: *Anyi_so_IF*  
+data for Y: *Buzheng_so_IF*  
+data for Y: *Chongren_so_IF*  
+data for Y: *EastMarket_IF*  
+data for Y: *Pingkang_IF*  
+data for Y: *DepartmentOfStateAffairs_IF*  
+data for Y: *TianmenStreet_so_IF*  
+data for Y: *Tongshan_so_IF*  
+data for Y: *Tongyi_so_IF*  
+data for Y: *WestMarket_so_IF*  
+data for Y: *XingqingPalace_IF*  
+data for Y: *Xuanyang_so_IF*  
+
+graph page--> add axist--> Y  
+![Trajectory of the integral function of SO value versus the story-time’s appearance by sigmaplot]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/Fig8.tif)  
+create graph--> multiple straight line--> data format--> XY Pair--> select data   
+data for X: *storytime_day*  data for Y: *SO_value_Integral_function(so_IF)*   
+data for X: *storytime_day*  data for Y: *readtime_phrase*   
+
+graph page--> add axist--> Y  
 # 2. Visualization in time level
 ## Sigmaplot 
 # Gis
