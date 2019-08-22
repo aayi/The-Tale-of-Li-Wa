@@ -1,5 +1,5 @@
 # The-Tale-of-Li-Wa
-This paper uses digital technology and spatial narrative theory to represent the narrative and narrative of experience of a Chinese classic novel, The Tale of Li Wa, which has been favored by literature and historians in the past approximately 900 years. To help contemporary readers understand this classic narrative and its context more wholly and deeply, the spatio-temporal information, derived from its text, its author, and readers, is extracted and fused to map the instantaneous spatial pattern perceived by readers in the flow of reading time. These comparative patterns form a logical loop of “time–space–time–space” that helps contemporary readers once again observe the literary and historic value through spatio-temporal narratives.
+This paper uses digital technology and spatial narrative theory to represent the narrative and narrative of experience of a Chinese classic novel, [*The Tale of Li Wa*]( https://github.com/aayi/The-Tale-of-Li-Wa), which has been favored by literature and historians in the past approximately 900 years. To help contemporary readers understand this classic narrative and its context more wholly and deeply, the spatio-temporal information, derived from its text, its author, and readers, is extracted and fused to map the instantaneous spatial pattern perceived by readers in the flow of reading time. These comparative patterns form a logical loop of “time–space–time–space” that helps contemporary readers once again observe the literary and historic value through spatio-temporal narratives.
 # 0. Digitization
 1. [Electronically scanned version]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S1_File.pdf) of *The Tale of Li Wa* in *Complete Library in Four Sections* 四库全书
 2. [Proofreading Text Edition]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/??.txt) of *The Tale of Li Wa* based on the version on [中国哲学书电子化计划（CText）]( https://ctext.org/wiki.pl?if=en&chapter=114571&remap=gb)
@@ -73,8 +73,9 @@ Anyi_so_IF= SUM(Anyi_SCS)
 
 ## 1.3 Chronicle of Bai Xingjian
 [sheet1_name: *circumstance*, sheet2_name: *poems*](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S3_Table.xlsx) 
-it is bassed on 4. 黄大宏. [A chronicle of Bai Xingjian]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/README.md#4sentiment-classification-score)  
-*circumstance_orientation_value* is assigned interpreted manually based on *Detail* 
+it is bassed on [A chronicle of Bai Xingjian](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/31白行简年谱_黄大宏.pdf) by 黄大宏
+
+*circumstance_orientation_value* is assigned manually based on *Detail* 
 
 ## 1.2 Arcgis
 
