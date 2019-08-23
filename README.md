@@ -185,47 +185,51 @@ import "shikong-vt.shp", "temporal simulation path in sapce.shp" and "link_betwe
 ![Statistics of the POS and places (adjective-space of the whole document) by Photoshop]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/Fig14.tif)  
 ![Visualization of path trajectory based on spatial discipline: characters’ appearance versus places’ appearance by Photoshop]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/Fig15.tif)  
 create the wordcloud image of POS of each place by [wordart]（ https://wordart.com/） --> imported in Photoshop --> move to relevant place  
-将小说中每个坊里的情感累加值、短句平均情感值和实际阶级值导入GIS的质心图层，右击“打开属性表”，并按照属性选择小说中涉及的坊里空间的数据，右击图层“数据-导出图层”，在“arctoolbox”中选择“geostatistical analyst-插值分析-反距离权重法”，输入要素选择刚导出的图层，Z值字段选择情感累加值的字段，输出栅格选择新建的图层的保存路径及名称，在环境的处理范围选择长安的“皇城里坊”图层，得出该小说的情感分布地图。在GIS目录工具中右击文件根目录新建shapefile文件，要素类型选择“面”。利用“编辑器”对该shapefile文件进行编辑，点击“创建要素”，利用画笔工具对长安范围进行选择，生成一个面数据的shapefile。在“arctoolbox”中选择“spatial analyst-提取分析-按掩膜提取”，在“输入栅格”中选择依据情感累加值生成的插值分析图层，“输入栅格数据或要素掩膜数据”选择新建的shapefile文件，“输出栅格”选择生成文件的目录及名称，生成依据长安具体尺度范围的情感插值分析图层。以此方法对坊里平均情感和实际阶级值进行处理。
 ## Sentiment map
 ![Inverse distance weighted (IDW) interpolation by ArcGIS of the sentiment classification score and places (a. sentiment classification score of place attribute, b. sentiment classification score/effective read-time of place attribute) by Arcmap]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/Fig16.tif) 
-Arcmap-->Toolbox-->IDW-->
-## Social network
-node：26
-edge：38
-Average Degree: 1.462
-Average Weighted Degree: 4.731
-Diameter: 5
-Radius: 1
-Average Path length: 2.265625
-Density: 0.095
-Randomize: On
-Use edge weights: Off
-Resolution: 0.8
-Modularity: 0.351
-Modularity with resolution: 0.218
-Number of Communities: 6
-Network Interpretation: undirectedAverage 
-Clustering Coefficient: 0.506
-Total triangles: 6
+Toolbox → geostatistical analyst- interpolation analysis – IDW→ input layer“点数据” → Environment-range-“皇城里坊”
+## [Social network](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S7%20File.zip)
+![Statistics of characters in co-occurrence network, modularity class, and betweenness centrality by Gephi]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/Fig17.tif)   
+node：26  
+edge：38  
+Average Degree: 1.462  
+Average Weighted Degree: 4.731  
+Diameter: 5  
+Radius: 1  
+Average Path length: 2.265625  
+Density: 0.095  
+Randomize: On  
+Use edge weights: Off  
+Resolution: 0.8  
+Modularity: 0.351  
+Modularity with resolution: 0.218  
+Number of Communities: 6  
+Network Interpretation: undirectedAverage   
+Clustering Coefficient: 0.506  
+Total triangles: 6  
 
-## Spatially embedded network 
-node：16
-edge：24
-Average Degree: 3.000
-Average Weighted Degree: 7.750
-Diameter: 6
-Radius: 3
-Average Path length: 2.265625
-Density: 0.200
-Randomize: On
-Use edge weights: Off
-Resolution: 0.8
-Modularity: 0.326
-Modularity with resolution: 0.194
-Number of Communities: 4
-Network Interpretation: undirectedAverage 
-Clustering Coefficient: 0.474
-Total triangles: 9
+## [Spatially embedded network](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S8%20File.zip) 
+![Network analysis of characters and places in modularity class analysis and weighted degree centrality based on a full-text, spatially embedded, undirected network of characters by Gephi]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/Fig18.tif)   
+![Network analysis of characters and places in closeness centrality and betweenness centrality based on a full-text spatially embedded undirected network of characters by Gephi]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/Fig19.tif)   
+![Network analysis of characters and places in authority and hub analysis based on a full-text spatially embedded directed network of characters by Gephi]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/Fig20.tif)   
+
+node：16  
+edge：24  
+Average Degree: 3.000  
+Average Weighted Degree: 7.750  
+Diameter: 6  
+Radius: 3  
+Average Path length: 2.265625  
+Density: 0.200  
+Randomize: On  
+Use edge weights: Off  
+Resolution: 0.8  
+Modularity: 0.326  
+Modularity with resolution: 0.194  
+Number of Communities: 4  
+Network Interpretation: undirectedAverage   
+Clustering Coefficient: 0.474  
+Total triangles: 9  
 
 
 ## Bai Xingjian's up and down
