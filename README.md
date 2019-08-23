@@ -162,6 +162,11 @@ data for X: *storytime_day*  data for Y: *SO_value_Integral_function(so_IF)*
 data for X: *storytime_day*  data for Y: *readtime_phrase*   
 
 graph page--> add axist--> Y  
+
+![Bai Xingjian's up and down by sigmaplot]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/Fig21.tif)   
+create graph--> vertical bar chart--> graph styles--> grouped bar--> data format--> many Y   
+data for X: *Age*  data for Y: *Circumstances_of_Bai* 
+data for X: *Age*  data for Y: *Circumstances_of_Bai_Chang'an*   
 # 2.2 Space-time
 import "shikong-vt.shp", "temporal simulation path in sapce.shp" and "link_between_places.shp" into Arcscene
 ![Visualization of the integral function of SO value and places’ appearance by Arcscene]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/Fig9.tif)  
@@ -189,7 +194,10 @@ create the wordcloud image of POS of each place by [wordart]（ https://wordart.
 ![Inverse distance weighted (IDW) interpolation by ArcGIS of the sentiment classification score and places (a. sentiment classification score of place attribute, b. sentiment classification score/effective read-time of place attribute) by Arcmap]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/Fig16.tif) 
 Toolbox → geostatistical analyst- interpolation analysis – IDW→ input layer“点数据” → Environment-range-“皇城里坊”
 ## [Social network](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S7%20File.zip)
+if two *character* co-occurr within two adjacent phrases, one edge will be added between them.  
+
 ![Statistics of characters in co-occurrence network, modularity class, and betweenness centrality by Gephi]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/Fig17.tif)   
+
 node：26  
 edge：38  
 Average Degree: 1.462  
@@ -209,6 +217,7 @@ Clustering Coefficient: 0.506
 Total triangles: 6  
 
 ## [Spatially embedded network](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S8%20File.zip) 
+it is based on **path.xlsx**
 ![Network analysis of characters and places in modularity class analysis and weighted degree centrality based on a full-text, spatially embedded, undirected network of characters by Gephi]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/Fig18.tif)   
 ![Network analysis of characters and places in closeness centrality and betweenness centrality based on a full-text spatially embedded undirected network of characters by Gephi]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/Fig19.tif)   
 ![Network analysis of characters and places in authority and hub analysis based on a full-text spatially embedded directed network of characters by Gephi]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/Fig20.tif)   
@@ -231,9 +240,6 @@ Network Interpretation: undirectedAverage
 Clustering Coefficient: 0.474  
 Total triangles: 9  
 
-
-## ![Bai Xingjian's up and down by sigmaplot]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/Fig21.tif)   
-
 # Reference
 [ArcGIS Desktop. Version 10.2.2]( https://arcgis_desktop.en.downloadastro.com/old_versions/)
 [IDW]( http://desktop.arcgis.com/en/arcmap/latest/tools/3d-analyst-toolbox/idw.htm)
@@ -242,4 +248,3 @@ Total triangles: 9
 [reference2]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/reference2.zip)
 [reference3]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/reference3.zip)
 [reference4]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/reference4.zip)
-
