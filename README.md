@@ -1,5 +1,5 @@
 # The-Tale-of-Li-Wa
-This paper uses digital technology and spatial narrative theory to represent the narrative and narrative of experience of a Chinese classic novel, [*The Tale of Li Wa*]( https://en.m.wikipedia.org/wiki/The_Tale_of_Li_Wa), which has been favored by literature and historians in the past approximately 900 years. To help contemporary readers understand this classic narrative and its context more wholly and deeply, the spatio-temporal information, derived from its text, its author, and readers, is extracted and fused to map the instantaneous spatial pattern perceived by readers in the flow of reading time. These comparative patterns form a logical loop of “time–space–time–space” that helps contemporary readers once again observe the literary and historic value through spatio-temporal narratives.
+People living in the digital age usually has difficulties in reading classical novels, in terms of obscure words, contextual difference and reading habits. This paper proposes a framework of digital models integrating spatial narrative theories to represent the narrative and narrative of experience of a Chinese classic novel,  [*The Tale of Li Wa*]( https://en.m.wikipedia.org/wiki/The_Tale_of_Li_Wa), which has been diversely interpreted by literature and historians in the past approximately 900 years. To help contemporary readers understand this classic narrative and its context in an integrated and in-depth approach, based on its knowledge graph about “narratives, experiences and geographical spaces”, the spatio-temporal information, derived from its text, its author, and readers, is extracted and fused to map the instantaneous spatial pattern perceived by readers in the flow of reading time.The discussion presents one of these possible interpretations on illustrating the growth of  the novel’s male protagonist in the open framework of "Time-Space-time-Space", which unfolds dialogues between computation and literature, diachronic and synchronic, reader and the author.
 
 ![*Flows (black arrows) of variables and comparisons (white arrows) among variables in the logical loop of time–space-time–space.*]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/Fig2.tif)
 # 0. Digitization
@@ -232,7 +232,7 @@ Clustering Coefficient: 0.474
 Total triangles: 9  
 
 
-## Bai Xingjian's up and down
+## ![Bai Xingjian's up and down by sigmaplot]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/Fig21.tif)   
 
 # Reference
 [ArcGIS Desktop. Version 10.2.2]( https://arcgis_desktop.en.downloadastro.com/old_versions/)
