@@ -16,23 +16,23 @@ It can be added in Arcmap/Qgis. It is an archaeological map in 「数字历史�
 
 we manually create this database including terms (unigram), parts of speech (POS), sentiment orientations (SO) value, and sentiment shifters by Excel. 
 
-### 1)*term*  
+### 1)*Term*  
 Criteria: broadening, dictionary, and semantic transparency  
 Reference dictionary: [国学大师](http://www.guoxuedashi.com/)  
 Reference Word Segmentation platform: [语料库在线](http://www.aihanyu.org/cncorpus/CpsWParser.aspx)  
 
-### 2)*POS*  
+### 2)*Part of Speech(pos)*  
 
 Tag  | n  | nt  | nd  | nl  | nh  | nhf  | nhs  | ns  | nn  | ni  | no  | nhh  | v  | vd  | vl  | vu  | a  | f  | m  | q  | d  | r  | p  | c  | u  | e  | o  | i  | w      
 |:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---
  pos  | Noun-general  | Noun-time | Noun-direction | Noun-location | Noun-human | noun-last name | noun-first name | Noun-space | Noun-nation | Noun-institution | Noun-offical  | noun-human’s pronoun | Verb | Verb- direction | Verb-linking | Verb-auxiliary | adjective | difference | numeral | quantity  | adverb  | pronoun | preposition | conjunction | auxiliary | exclamation | onaomatopoeia | idiom | punctuation 
  
-### 3)*so*  
+### 3)*Sentiment oritention(so)*  
 The assignment of the SO value is as follows: each positive sentiment expression in the novel such as laugh (欢笑) (v.) and magnificent (瑰奇) (a.) is given an SO value of +1 (172 in total), and each negative sentiment expression such as whimper (呜咽) (v.) and poor (贫窭) (a.) is assigned a SO value of −1 (177 in total).  
 We do two rounds of sentiment orientations (SO) value assignment(*LIU_SO value* and *MA_SO value*).  
 The percentage of consent of two rounds of SO value assignment is 81.5%
 
-### 4)*sentiment classification score*  
+### 4)*Sentiment classification score*  
 
 ```
 SO_value_effective = IF(sentiment_shifter_-1=-1,SO value * sentiment_shifter_-1,SO value)   
@@ -49,48 +49,50 @@ phrase_sentiment_classification_score = IF(POS="w",for_phrase_sentiment_classifi
 
 The phrase-level framework assigns the recalculated value of POS and SO value to a relevant phrase by Excel. These values can be applied to the next time level because the sequence number of phrases is defined as read-time. Specific data mining approaches for the following parameters, i.e. places, story-time, and sentiment classification scores are valuable.
 
-### 1)*phrase*  
+### 1)*Phrase*  
 *sentiment_classification_score(SCS)* inherits the value of [*phrase_sentiment_classification_score*]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/README.md#4sentiment-classification-score)  
-### 2)*time*  
+### 2)*Time*  
 *storytime_day*  
 Noun-time (nt.) such as the Tianbao period (天宝), 10 years later (十年), more than a month later (月余), and another day (他日), which is 2.7% of the total texts, are used to simulate the whole story-time in an interval of every single day. The entire story timeline we constructed from the texts started from when Student Zheng entered Chang’an in 747A.D. and ended around the happy ending of the novel, that is, the year Zheng is appointed to become an officer is 754 A.D., and Li Wa is conferred the title Lady Qian‘guo (汧国夫人) in 775 A.D. The story-time is defined by the exact time record of the story that occurred during the period of 742 to 746 A.D.(天宝年间), Bai Xingjian wrote the tale in August of 795 A.D. (贞元中……乙亥岁秋八月) and the nt. phrases. 
 
 *readtime_phrase*  
 the sequence number of phrases is defined as read-time  
-### 3)*character*  
-*character1*， *character2*， *character3*， and *character4* contain up to 4 characters in each phrase.
-### 4)*character & SO*  
+### 3)*Character*  
+*character1*， *character2*， *character3*， and *character4* contain one character in each phrase(since one phrase contains at most 4 characters).  
+
+### 4)*Character & SO*  
 ```
 ZHENG_SCS = IF(character1="郑生" or character2="郑生" or character3="郑生" or character4="郑生",sentiment_classification_score(SCS),"")  
 ```
-ZHENG_so_IF= SUM(J15ZHENG_SCS)
+*ZHENG_so_IF*= SUM(*ZHENG_SCS*)
 #tip: ```K15=SUM(J$15:J15), K18=SUM(J$15:J18), K50=SUM(J$15:J50)```#
-### 5)*place*  
+### 5)*Place*  
 A noun-space (ns.) such as Chang’an City, and specific place names inside the city such as the Buzheng Ward (布政坊) and Xingyuan Garden (杏园) (located in Tongshan Ward [通善坊]), account for 1.1% of the total texts tagged as the level of residential wards and streets directly mentioned (e.g., Buzheng Ward) or most likely to be located (e.g., Tongshan Ward). These uniformly fine-grained places are applied to cover the corresponding story phrases of which plot takes place in these places.
-### 6)*place & SO*  
+### 6)*Place & SO*  
 ```
 Anyi_SCS = IF(ward_in_chang'an="安邑坊",sentiment_classification_score(SCS),"")  
 ```
-Anyi_so_IF= SUM(Anyi_SCS)
+*Anyi_so_IF*= SUM(*Anyi_SCS*)
 #tip: ```I526=SUM(H$526:H526), I535=SUM(H$526:H535), I606=SUM(H$526:H606)```#
 
 ## 1.3 Chronicle of Bai Xingjian
 [sheet1_name: *circumstance*, sheet2_name: *poems*](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S3%20Table.xlsx) 
-it is bassed on [A chronicle of Bai Xingjian](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/31白行简年谱_黄大宏.pdf) by 黄大宏 in Excel
+it is bassed on [A chronicle of Bai Xingjian](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/31白行简年谱_黄大宏.pdf) by 黄大宏  
 
-*circumstance_orientation_value* is assigned manually based on *Detail*   
+*Detail*  contians Bai's specific experience every year  
+*circumstance_orientation_value* is assigned manually based on the good/bad of *Detail*. Such as "祖母殁于新郑县私第(Bai's grandmother died)"is assigned a value of −1, "行简进士及第...行简同年...应制举(Bai passed the Imperial Examination...Bai passed passed the Palace Examination)" is assigned a value of +2.   
 
-Circumstances_of_Bai = SUM(circumstance_orientation_value)
+*Circumstances_of_Bai* = SUM(*circumstance_orientation_value*)
 #tip: ```E2=SUM($D$2:D2), E10=SUM($D$2:D10), E52=SUM($D$2:D52)```#  
 ```
 circumstance_orientation_value_chang'an = IF(Place="长安",circumstance_orientation_value,"")  
 ```
-## 1.4 Spatial syntax of Chang'an
-Vector file of street of chang'an is created by Autocad and then [imported into Depthmap](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S4%20File.graph)(a technology used to analyze the spatial layouts, and human activity patterns in urban areas)  
+## 1.4 [Spatial syntax of Chang'an](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S4%20File.graph)
+Vector file of street of chang'an is created by [Autocad]( https://www.autodesk.com/products/autocad/overview) and then imported into *Depthmap*([a technology used to analyze the spatial layouts, and human activity patterns in urban areas]( http://otp.spacesyntax.net/overview-2/))  
 
 ##### *Integration analysis of the road network of Chang’an city by Depthmap*
 ![Integration analysis of the road network of Chang’an city by Depthmap]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/png/Fig4.png)   
-Using CAD to depict the main road axis map of Chang'an map → Save as dxf file → Open the depthmap software and create a new workspace → Map-import-Choosing Changan Road Axis Chart → ap-convert drawing map→tools-axial/convex/pesh-run graph analysis-Radius/list of radii – input n,2,3,5,7-choose include choice（betweenness）/local measures/RA,RRA and total depth/weighted measures-length
+Using Autocad to depict the main road axis map of Chang'an map(Vector file of street of chang'an) → Save as *dxf* file → Open the depthmap software and create a new workspace → Map-import-Choosing Chang'an Road Axis Chart → ap-convert drawing map → tools-axial/convex/pesh-run graph analysis-Radius/list of radii – input n,2,3,5,7-choose include choice（betweenness）/local measures/RA,RRA and total depth/weighted measures-length
 
 The degree of integration (a space syntax parameter) reflects the ease of access to streets, that is, it may determine which street is more likely to attract Zheng, as an explorer of Chang’an.  
 
