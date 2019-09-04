@@ -1,7 +1,7 @@
 # The-Tale-of-Li-Wa
 People living in the digital age usually has difficulties in reading classical novels, in terms of obscure words, contextual difference and reading habits. This paper proposes a framework of digital models integrating spatial narrative theories to represent the narrative and narrative of experience of a Chinese classic novel,  [*The Tale of Li Wa*]( https://en.m.wikipedia.org/wiki/The_Tale_of_Li_Wa), which has been diversely interpreted by literature and historians in the past approximately 900 years. To help contemporary readers understand this classic narrative and its context in an integrated and in-depth approach, based on its knowledge graph about “narratives, experiences and geographical spaces”, the spatio-temporal information, derived from its text, its author, and readers, is extracted and fused to map the instantaneous spatial pattern perceived by readers in the flow of reading time.The discussion presents one of these possible interpretations on illustrating the growth of  the novel’s male protagonist in the open framework of "Time-Space-time-Space", which unfolds dialogues between computation and literature, diachronic and synchronic, reader and the author.
 
-##### *Flows (black arrows) of variables and comparisons (white arrows) among variables in the logical loop of time–space-time–space.*
+##### Flows (black arrows) of variables and comparisons (white arrows) among variables in the logical loop of time–space-time–space
 ![*Flows (black arrows) of variables and comparisons (white arrows) among variables in the logical loop of time–space-time–space.*]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/png/Fig2.png)
 # 0. Digitization
 1. [Electronically scanned version]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S1%20File.pdf) of *The Tale of Li Wa* in *Complete Library in Four Sections* 四库全书
@@ -12,210 +12,240 @@ It can be added in Arcmap/Qgis. It is an archaeological map in 「数字历史�
 
 # 1. Structuring
 ## 1.1 Text database on word level
-[sheet1_name: *term*, sheet2_name: *POS*, sheet3_name: *so*, sheet4_name: *sentiment classification score*](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S1%20Table.xlsx) 
+[S1 Table.xlsx](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S1%20Table.xlsx) (sheet1_name: *term*, sheet2_name: *POS*, sheet3_name: *so*, sheet4_name: *sentiment classification score*)  
 
 we manually create this database including terms (unigram), parts of speech (POS), sentiment orientations (SO) value, and sentiment shifters by Excel. 
 
-### 1)*Term*  
-Criteria: broadening, dictionary, and semantic transparency  
+### 1) *Term* 
+Segment of `Term` Criteria: Broadening, Dictionary, and Semantic Transparency  
+
 Reference dictionary: [国学大师](http://www.guoxuedashi.com/)  
 Reference Word Segmentation platform: [语料库在线](http://www.aihanyu.org/cncorpus/CpsWParser.aspx)  
 
-### 2)*Part of Speech(pos)*  
+### 2) *Part of Speech*  
 
 Tag  | n  | nt  | nd  | nl  | nh  | nhf  | nhs  | ns  | nn  | ni  | no  | nhh  | v  | vd  | vl  | vu  | a  | f  | m  | q  | d  | r  | p  | c  | u  | e  | o  | i  | w      
 |:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---
- pos  | Noun-general  | Noun-time | Noun-direction | Noun-location | Noun-human | noun-last name | noun-first name | Noun-space | Noun-nation | Noun-institution | Noun-offical  | noun-human’s pronoun | Verb | Verb- direction | Verb-linking | Verb-auxiliary | adjective | difference | numeral | quantity  | adverb  | pronoun | preposition | conjunction | auxiliary | exclamation | onaomatopoeia | idiom | punctuation 
+ `pos`  | Noun-general  | Noun-time | Noun-direction | Noun-location | Noun-human | noun-last name | noun-first name | Noun-space | Noun-nation | Noun-institution | Noun-offical  | noun-human’s pronoun | Verb | Verb- direction | Verb-linking | Verb-auxiliary | adjective | difference | numeral | quantity  | adverb  | pronoun | preposition | conjunction | auxiliary | exclamation | onaomatopoeia | idiom | punctuation 
  
-### 3)*Sentiment oritention(so)*  
+### 3) *Sentiment oritention(so)*  
 The assignment of the SO value is as follows: each positive sentiment expression in the novel such as laugh (欢笑) (v.) and magnificent (瑰奇) (a.) is given an SO value of +1 (172 in total), and each negative sentiment expression such as whimper (呜咽) (v.) and poor (贫窭) (a.) is assigned a SO value of −1 (177 in total).  
-We do two rounds of sentiment orientations (SO) value assignment(*LIU_SO value* and *MA_SO value*).  
+We do two rounds of sentiment orientations (SO) value assignment(`LIU_SO value` and `MA_SO value`).  
 The percentage of consent of two rounds of SO value assignment is 81.5%
 
-### 4)*Sentiment classification score*  
+### 4) `Sentiment classification score`  
 
 ```
 SO_value_effective = IF(sentiment_shifter_-1=-1,SO value * sentiment_shifter_-1,SO value)   
 
 for_phrase_sentiment_classification_score = IF(POS<>"w",SO_value_effective,"")  
 ```
-for_phrase_sentiment_classification_score = SUM(for_phrase_sentiment_classification_score))  
-#tip: Ctrl+ G--> "Null(k)"--> "∑"( Automatic summation) #
+`for_phrase_sentiment_classification_score` = SUM(`for_phrase_sentiment_classification_score`)
+#tips for operation step: Ctrl+G--> "Null(k)"--> "∑"(which means Automatic summation) #
 ```
 phrase_sentiment_classification_score = IF(POS="w",for_phrase_sentiment_classification_score)
 ```
 ## 1.2 Text database on phrase level
-[sheet1_name: *phrase*, sheet2_name: *time*, sheet3_name: *character*, sheet4_name: *character & SO*, sheet5_name: *place*, sheet6_name: *place & SO*](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S2%20Table.xlsx) 
+[S2 Table.xlsx](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S2%20Table.xlsx) (sheet1_name: *phrase*, sheet2_name: *time*, sheet3_name: *character*, sheet4_name: *character & SO*, sheet5_name: *place*, sheet6_name: *place & SO*)  
 
 The phrase-level framework assigns the recalculated value of POS and SO value to a relevant phrase by Excel. These values can be applied to the next time level because the sequence number of phrases is defined as read-time. Specific data mining approaches for the following parameters, i.e. places, story-time, and sentiment classification scores are valuable.
 
-### 1)*Phrase*  
-*sentiment_classification_score(SCS)* inherits the value of [*phrase_sentiment_classification_score*]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/README.md#4sentiment-classification-score)  
-### 2)*Time*  
-*storytime_day*  
+### 1) *Phrase*  
+`sentiment_classification_score(SCS)` inherits the value of [`phrase_sentiment_classification_score`]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/README.md#4sentiment-classification-score)  
+### 2) *Time*  
+`storytime_day`  
 Noun-time (nt.) such as the Tianbao period (天宝), 10 years later (十年), more than a month later (月余), and another day (他日), which is 2.7% of the total texts, are used to simulate the whole story-time in an interval of every single day. The entire story timeline we constructed from the texts started from when Student Zheng entered Chang’an in 747A.D. and ended around the happy ending of the novel, that is, the year Zheng is appointed to become an officer is 754 A.D., and Li Wa is conferred the title Lady Qian‘guo (汧国夫人) in 775 A.D. The story-time is defined by the exact time record of the story that occurred during the period of 742 to 746 A.D.(天宝年间), Bai Xingjian wrote the tale in August of 795 A.D. (贞元中……乙亥岁秋八月) and the nt. phrases. 
 
-*readtime_phrase*  
+`readtime_phrase`  
 the sequence number of phrases is defined as read-time  
-### 3)*Character*  
-*character1*， *character2*， *character3*， and *character4* contain one character in each phrase(since one phrase contains at most 4 characters).  
+### 3) *Character*  
+`character1`， `character2`， `character3`， and `character4` contain one character in each phrase(since one phrase contains at most 4 characters).  
 
-### 4)*Character & SO*  
+### 4) *Character & SO*  
 ```
 ZHENG_SCS = IF(character1="郑生" or character2="郑生" or character3="郑生" or character4="郑生",sentiment_classification_score(SCS),"")  
 ```
-*ZHENG_so_IF*= SUM(*ZHENG_SCS*)
-#tip: ```K15=SUM(J$15:J15), K18=SUM(J$15:J18), K50=SUM(J$15:J50)```#
-### 5)*Place*  
+`ZHENG_so_IF`= SUM(`ZHENG_SCS`)
+#tips for operation step: ```K15=SUM(J$15:J15), K18=SUM(J$15:J18), K50=SUM(J$15:J50)```#
+### 5) *Place*  
 A noun-space (ns.) such as Chang’an City, and specific place names inside the city such as the Buzheng Ward (布政坊) and Xingyuan Garden (杏园) (located in Tongshan Ward [通善坊]), account for 1.1% of the total texts tagged as the level of residential wards and streets directly mentioned (e.g., Buzheng Ward) or most likely to be located (e.g., Tongshan Ward). These uniformly fine-grained places are applied to cover the corresponding story phrases of which plot takes place in these places.
-### 6)*Place & SO*  
+### 6) *Place & SO*  
 ```
 Anyi_SCS = IF(ward_in_chang'an="安邑坊",sentiment_classification_score(SCS),"")  
 ```
-*Anyi_so_IF*= SUM(*Anyi_SCS*)
-#tip: ```I526=SUM(H$526:H526), I535=SUM(H$526:H535), I606=SUM(H$526:H606)```#
+`Anyi_so_IF`= SUM(`Anyi_SCS`)
+#tips for operation step: ```I526=SUM(H$526:H526), I535=SUM(H$526:H535), I606=SUM(H$526:H606)```#
 
 ## 1.3 Chronicle of Bai Xingjian
-[sheet1_name: *circumstance*, sheet2_name: *poems*](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S3%20Table.xlsx) 
-it is bassed on [A chronicle of Bai Xingjian](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/31白行简年谱_黄大宏.pdf) by 黄大宏  
+[S3 Table.xlsx](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S3%20Table.xlsx) (sheet1_name: *circumstance*, sheet2_name: *poems*) is bassed on [A chronicle of Bai Xingjian](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/31白行简年谱_黄大宏.pdf) collated by 黄大宏  
 
-*Detail*  contians Bai's specific experience every year  
-*circumstance_orientation_value* is assigned manually based on the good/bad of *Detail*. Such as "祖母殁于新郑县私第(Bai's grandmother died)"is assigned a value of −1, "行简进士及第...行简同年...应制举(Bai passed the Imperial Examination...Bai passed passed the Palace Examination)" is assigned a value of +2.   
-
-*Circumstances_of_Bai* = SUM(*circumstance_orientation_value*)
-#tip: ```E2=SUM($D$2:D2), E10=SUM($D$2:D10), E52=SUM($D$2:D52)```#  
+`Detail`  contians Bai's specific experience every year  
+`circumstance_orientation_value` is assigned manually based on the good/bad of *Detail*. Such as "祖母殁于新郑县私第(Bai's grandmother died)"is assigned a value of −1, "行简进士及第...行简同年...应制举(Bai passed the Imperial Examination...Bai passed passed the Palace Examination)" is assigned a value of +2.   
+`Circumstances_of_Bai` = SUM(`circumstance_orientation_value`)
+#tips for operation step: ```E2=SUM($D$2:D2), E10=SUM($D$2:D10), E52=SUM($D$2:D52)```#  
 ```
 circumstance_orientation_value_chang'an = IF(Place="长安",circumstance_orientation_value,"")  
 ```
-## 1.4 [Spatial syntax of Chang'an](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S4%20File.graph)
+## 1.4 [Spatial syntax of Chang'an]
+[S4 File.graph](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S4%20File.graph)  
 Vector file of street of chang'an is created by [Autocad]( https://www.autodesk.com/products/autocad/overview) and then imported into *Depthmap*([a technology used to analyze the spatial layouts, and human activity patterns in urban areas]( http://otp.spacesyntax.net/overview-2/))  
 
-##### *Integration analysis of the road network of Chang’an city by Depthmap*
+##### Integration analysis of the road network of Chang’an city by Depthmap
 ![Integration analysis of the road network of Chang’an city by Depthmap]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/png/Fig4.png)   
+#tips for operation step:  
 Using Autocad to depict the main road axis map of Chang'an map(Vector file of street of chang'an) → Save as *dxf* file → Open the depthmap software and create a new workspace → Map-import-Choosing Chang'an Road Axis Chart → ap-convert drawing map → tools-axial/convex/pesh-run graph analysis-Radius/list of radii – input n,2,3,5,7-choose include choice（betweenness）/local measures/RA,RRA and total depth/weighted measures-length
 
 The degree of integration (a space syntax parameter) reflects the ease of access to streets, that is, it may determine which street is more likely to attract Zheng, as an explorer of Chang’an.  
 
 ## 1.5 Spatially embedded semantic data
-[Combine Text database with spatial data by Arcmap](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S3%20File.zip)  
+[S3 File.zip](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S3%20File.zip)(**path.xlsx**, **place.xlsx**, **shikong-vt.shp**, **link_between_places.shp**) combines Text database with spatial data by [Arcmap](http://desktop.arcgis.com/en/arcmap/10.3/main/map/what-is-arcmap-.htm).  
 
-### 1)Polygon
-create shapefile of **Polygon**( Ward& Palace) based on[*Raster map of Tang Chang'an with location information*](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S2%20File.zip)  
-### 2)point
-#### shikong-vt.shp
-- create **Point**( centroid of **Polygon**)--> add field "ward_in_chang'an" and fill in  
-- [Text database on phrase level](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/README.md#11-text-database-on-word-level) is joined with **Point** by field "ward_in_chang'an"  
-#### [LIWA_data.shp](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S6%20File.zip)  
-- create **Point**( centroid of **Polygon**)--> add field "ward_in_chang'an" and fill in 
-- create **place.xlsx**( sheet1_name: *stratum_statistics*, sheet2_name: *place_statistics*) by Excel based on [Text database on phrase level](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/README.md#11-text-database-on-word-level)  
- 
- place  | sum_sentiment_effective_classification_score  | phrase_count  | averge_sentiment_classification_score  | effective_sum_sentiment_classification_score  | effective_phrase_count  | averge_sentiment_effective_classification_score  | averge_stratum  | STDEV_stratum  | COUNT_stratum      
-|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---
- ward  | SUM(place_SCS)  in sheet" place & SO"  | COUNT(place_SCS)  in sheet" place & SO"   |  AVERAGE(place_SCS)  in sheet" place & SO"  | IF place_SCS<>0,SUM(place_SCS),""  in sheet" place & SO" | IF place_SCS<>0,COUNT(place_SCS),""  in sheet" place & SO" | IF place_SCS<>0,AVERAGE(place_SCS),""  in sheet" place & SO" | AVERAGE(place_stratum)  in sheet" stratum_statistics" | STDEV(place_stratum)  in sheet" stratum_statistics" | COUNT(place_stratum)  in sheet" stratum_statistics"   
-- **place.xlsx** is joined with **Point** by field "NAME"   
-### 3)polyline
-#### temporal simulation path in sapce.shp
-Arcmap--> Toolbox--> XY to Line--> import *shikong-vt.shp*
-#### [link_between_places.shp](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S5%20File.zip)
--  create **path.xlsx** by Excel based on [Text database on phrase level](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/README.md#11-text-database-on-word-level)  
-Each time when *ward_in_chang'an* in sheet "place & SO" changes, an *ID* is added in **path.xlsx** with *Origin* to *Destination*  
-*sentiment score between places*: value difference of *sum_sentiment_effective_classification_score* between *Origin* and *Destination*
+### 1) path.xlsx
+create **path.xlsx** semi-manually by Excel based on [Text database on phrase level](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/README.md#11-text-database-on-word-level)  
+Each time when `ward_in_chang'an` in sheet "place & SO" changes, an `ID` is added in **path.xlsx** with `Origin` to `Destination`  
+`sentiment score between places`: value difference of `sum_sentiment_effective_classification_score` between `Origin` and `Destination`
 
-*straturm classification*: The classification of social stratum of the *character*
+`straturm classification`: The classification of social `stratum` of the `character`
 The classification of social stratum in the story from untouchable to nobles is as follows: (1) beggar, servant, and sex worker; (2) businessman, civilian, madam; (3) ward head (里胥), candidate student, successful candidate, county judicial official (贼曹); and (4) Chang’an officials (京尹) and officials from other places. 
+### 2) place.xlsx
+create **place.xlsx**( sheet1_name: *stratum_statistics*, sheet2_name: *place_statistics*) by Excel based on [Text database on phrase level](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/README.md#11-text-database-on-word-level)  
+*stratum_statistics* inherits the value in **path.xlsx**  
+#tips for operation step in *place_statistics*:  
+
+`place`  | `sum_sentiment_effective_classification_score`  | `phrase_count`  | `averge_sentiment_classification_score`  | `effective_sum_sentiment_classification_score`  | `effective_phrase_count`  | `averge_sentiment_effective_classification_score`  | `averge_stratum`  | `STDEV_stratum`  | `COUNT_stratum`      
+|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---
+ ward  | SUM(`place_SCS`)  in sheet" place & SO"  | COUNT(`place_SCS`)  in sheet" place & SO"   |  AVERAGE(`place_SCS`)  in sheet" place & SO"  | IF `place_SCS`<>0,SUM(`place_SCS`),""  in sheet" place & SO" | IF `place_SCS<>0`,COUNT(`place_SCS`),""  in sheet" place & SO" | IF `place_SCS`<>0,AVERAGE(`place_SCS`),""  in sheet" place & SO" | AVERAGE(`place_stratum`)  in sheet" stratum_statistics" | STDEV(`place_stratum`)  in sheet" stratum_statistics" | COUNT(place_stratum)  in sheet" stratum_statistics"   
+### 3) [Polygon](http://desktop.arcgis.com/en/arcmap/10.3/analyze/arcpy-classes/polygon.htm)
+#tips for operation step:  
+create shapefile of **Polygon**( Ward& Palace) based on[*Raster map of Tang Chang'an with location information*](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S2%20File.zip)  
+This shapefile is not uploaded to github due to copyright issues
+### 4) [Point](http://desktop.arcgis.com/en/arcmap/10.3/analyze/arcpy-classes/point.htm)
+#### shikong-vt.shp  
+#tips for operation step:  
+- create **Point**( centroid of **Polygon**)--> add field `ward_in_chang'an` and fill in  
+- [Text database on phrase level](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/README.md#11-text-database-on-word-level) is joined with **Point** by field `ward_in_chang'an`  
+#### LIWA_data.shp
+[LIWA_data.shp](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S6%20File.zip)  
+#tips for operation step:   
+- create **Point**( centroid of **Polygon**)--> add field `ward_in_chang'an` and fill in 
+- **place.xlsx** is joined with **Point** by field `NAME`   
+### 5) [Polyline](http://desktop.arcgis.com/en/arcmap/10.3/analyze/arcpy-classes/polyline.htm)
+#### temporal simulation path in sapce.shp
+[S5 File.zip](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S5%20File.zip)  
+#tips for operation step:  
+Arcmap--> Toolbox--> XY to Line--> import **shikong-vt.shp**
+#### [link_between_places.shp](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S5%20File.zip)
 -  create **polyline**
 The rules of the simulation are from the characteristics of the streets: first, prefer the shortest path, and second, prefer the street sections with the highest degree of spatial syntax [integration](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S4%20File.graph). 
-- **path.xlsx** is joined with **polyline** by field "ID" 
+- **path.xlsx** is joined with **polyline** by field `ID` 
 
 # 2. Representation
 ## 2.1 Time 
-##### *Trajectory of the integral function of SO value by sigmaplot*
+##### Trajectory of the integral function of SO value by sigmaplot
 ![Trajectory of the integral function of SO value by sigmaplot]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/png/Fig5.png)  
-create graph--> simple straight line--> data format--> XY Pair--> select data   
-data for X: *storytime_day*  data for Y: *SO_value_Integral_function(so_IF)* 
+#tips for operation step:  
+create graph--> simple straight line--> data format--> XY Pair--> select data  
+data for X: `storytime_day`  data for Y: `SO_value_Integral_function(so_IF)`  
 
-##### *Trajectory of the integral function of SO value and characters’ appearance by sigmaplot*
+##### Trajectory of the integral function of SO value and characters’ appearance by sigmaplot
 ![Trajectory of the integral function of SO value and characters’ appearance by sigmaplot]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/png/Fig6.png)  
+#tips for operation step:  
 create graph--> multiple straight line--> data format--> XY Pair--> select data   
-data for X: *storytime_day*  data for Y: *SO_value_Integral_function(so_IF)*   
-data for X: *storytime_day*  data for Y: *ZHENG_so_IF*  
-data for X: *storytime_day*  data for Y: *LI_Wa_so_IF*   
-data for X: *storytime_day*  data for Y: *LI_Wa's_mother_so_IF*   
-data for X: *storytime_day*  data for Y: *ZHENG's_father_so_IF*   
+data for X: `storytime_day`  data for Y: `SO_value_Integral_function(so_IF)`   
+data for X: `storytime_day`  data for Y: `ZHENG_so_IF`  
+data for X: `storytime_day`  data for Y: `LI_Wa_so_IF`   
+data for X: `storytime_day`  data for Y: `LI_Wa's_mother_so_IF`   
+data for X: `storytime_day`  data for Y: `ZHENG's_father_so_IF`   
 
-##### *Trajectory of the integral function of SO value and places’ appearance by sigmaplot*
+##### Trajectory of the integral function of SO value and places’ appearance by sigmaplot
 ![Trajectory of the integral function of SO value and places’ appearance by sigmaplot]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/png/Fig7.png)  
+#tips for operation step:  
 create graph--> simple straight line--> data format--> XY Pair--> select data   
-data for X: *storytime_day*  data for Y: *SO_value_Integral_function(so_IF)*  
+data for X: `storytime_day`  data for Y: `SO_value_Integral_function(so_IF)`  
 
 add new plot--> graph types--> vertical bar chart--> graph styles--> grouped bars--> data formats--> many Y   
-data for Y: *Anyi_so_IF*  
-data for Y: *Buzheng_so_IF*  
-data for Y: *Chongren_so_IF*  
-data for Y: *EastMarket_IF*  
-data for Y: *Pingkang_IF*  
-data for Y: *DepartmentOfStateAffairs_IF*  
-data for Y: *TianmenStreet_so_IF*  
-data for Y: *Tongshan_so_IF*  
-data for Y: *Tongyi_so_IF*  
-data for Y: *WestMarket_so_IF*  
-data for Y: *XingqingPalace_IF*  
-data for Y: *Xuanyang_so_IF*  
+data for Y: `Anyi_so_IF`  
+data for Y: `Buzheng_so_IF`  
+data for Y: `Chongren_so_IF`  
+data for Y: `EastMarket_IF`  
+data for Y: `Pingkang_IF`  
+data for Y: `DepartmentOfStateAffairs_IF`  
+data for Y: `TianmenStreet_so_IF`  
+data for Y: `Tongshan_so_IF`  
+data for Y: `Tongyi_so_IF`  
+data for Y: `WestMarket_so_IF`  
+data for Y: `XingqingPalace_IF`  
+data for Y: `Xuanyang_so_IF`  
 
 graph page--> add axist--> Y  
-##### *Trajectory of the integral function of SO value versus the story-time’s appearance by sigmaplot*
+##### Trajectory of the integral function of SO value versus the story-time’s appearance by sigmaplot
 ![Trajectory of the integral function of SO value versus the story-time’s appearance by sigmaplot]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/png/Fig8.png)  
+#tips for operation step:  
 create graph--> multiple straight line--> data format--> XY Pair--> select data   
-data for X: *storytime_day*  data for Y: *SO_value_Integral_function(so_IF)*   
-data for X: *storytime_day*  data for Y: *readtime_phrase*   
+data for X: `storytime_day`  data for Y: `SO_value_Integral_function(so_IF)`   
+data for X: `storytime_day`  data for Y: `readtime_phrase`   
 
 graph page--> add axist--> Y  
 
-##### *Bai Xingjian's up and down by sigmaplot*
+##### Bai Xingjian's up and down by sigmaplot
 ![Bai Xingjian's up and down by sigmaplot]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/png/Fig21.png)   
+#tips for operation step:  
 create graph--> vertical bar chart--> graph styles--> grouped bar--> data format--> many Y   
-data for X: *Age*  data for Y: *Circumstances_of_Bai* 
-data for X: *Age*  data for Y: *Circumstances_of_Bai_Chang'an*   
+data for X: `Age`  data for Y: `Circumstances_of_Bai` 
+data for X: `Age`  data for Y: `Circumstances_of_Bai_Chang'an`   
 # 2.2 Space-time
-import "shikong-vt.shp", "temporal simulation path in sapce.shp" and "link_between_places.shp" into Arcscene
-##### *Visualization of the integral function of SO value and places’ appearance by Arcscene*
+import **shikong-vt.shp**, **temporal simulation path in sapce.shp** and **link_between_places.shp** into [Arcscene](http://desktop.arcgis.com/en/arcmap/10.3/guide-books/extensions/3d-analyst/3d-analyst-and-arcscene.htm)
+##### Visualization of the integral function of SO value and places’ appearance by Arcscene
 ![Visualization of the integral function of SO value and places’ appearance by Arcscene]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/png/Fig9.png)  
+#tips for operation step:  
 "shikong-vt.shp"--> properties--> Element--> Single symbol
-"temporal simulation path in sapce.shp"--> properties--> Symbolic System--> Graded colour--> value--> sheet1_em     
+"temporal simulation path in sapce.shp"--> properties--> Symbolic System--> Graded colour--> value--> `sheet1_em`     
 
-##### *Visualization of path trajectory based on spatial discipline: characters’ appearance versus places’ appearance by Arcscene*
+##### Visualization of path trajectory based on spatial discipline: characters’ appearance versus places’ appearance by Arcscene
 ![Visualization of path trajectory based on spatial discipline: characters’ appearance versus places’ appearance by Arcscene]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/png/Fig10.png)  
+#tips for operation step:  
 "shikong-vt.shp"--> properties--> Element--> Single symbol   
-"link_between_places.shp"--> properties--> Symbolic Systems--> category--> Unique value--> value--> 人物啊 
+"link_between_places.shp"--> properties--> Symbolic Systems--> category--> Unique value--> value--> `人物啊` 
 
-##### *Visualization of path trajectory based on spatial discipline: characters’ appearance and the integral function of SO value versus places’ appearance by Arcscene*
+##### Visualization of path trajectory based on spatial discipline: characters’ appearance and the integral function of SO value versus places’ appearance by Arcscene
 ![Visualization of path trajectory based on spatial discipline: characters’ appearance and the integral function of SO value versus places’ appearance by Arcscene]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/png/Fig11.png)  
+#tips for operation step:  
 "shikong-vt.shp"--> properties--> Element--> Single symbol
-"link_between_places.shp"--> properties--> Symbolic Systems--> Graded colour--> value--> 情感差  
+"link_between_places.shp"--> properties--> Symbolic Systems--> Graded colour--> value--> `情感差`  
 
-##### *Visualization of path trajectory based on spatial discipline: characters’ appearance versus places’ appearance and the integral function of SO value by Arcscene*
+##### Visualization of path trajectory based on spatial discipline: characters’ appearance versus places’ appearance and the integral function of SO value by Arcscene
 ![Visualization of path trajectory based on spatial discipline: characters’ appearance versus places’ appearance and the integral function of SO value by Arcscene]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/png/Fig12.png)  
+#tips for operation step:  
 "shikong-vt.shp"--> properties--> Symbolic System--> Graded colour--> value--> sheet1_em   
-"link_between_places.shp"--> properties--> Symbolic Systems--> category--> Unique value--> value--> 阶级值    
+"link_between_places.shp"--> properties--> Symbolic Systems--> category--> Unique value--> value--> `阶级值`    
 # 2.3 Space
 ## POS map
-##### *Statistics of the POS and places (noun-space of the whole document) by Photoshop*
+##### Statistics of the POS and places (noun-space of the whole document) by Photoshop
 ![Statistics of the POS and places (noun-space of the whole document) by Photoshop]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/png/Fig13.png)  
-##### *Statistics of the POS and places (adjective-space of the whole document) by Photoshop*
+##### Statistics of the POS and places (adjective-space of the whole document) by Photoshop
 ![Statistics of the POS and places (adjective-space of the whole document) by Photoshop]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/png/Fig14.png)  
-##### *Visualization of path trajectory based on spatial discipline: characters’ appearance versus places’ appearance by Photoshop*
+##### Visualization of path trajectory based on spatial discipline: characters’ appearance versus places’ appearance by Photoshop
 ![Visualization of path trajectory based on spatial discipline: characters’ appearance versus places’ appearance by Photoshop]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/png/Fig15.png)  
-create the wordcloud image of POS of each place by [wordart]（ https://wordart.com/） --> imported in Photoshop --> move to relevant place  
+#tips for operation step:  
+create the wordcloud image of POS of each place by [wordart]（ https://wordart.com/） --> imported in [Photoshop](https://www.adobe.com/products/photoshop.html?promoid=1NZGDDSP&mv=other&origref=https%3A%2F%2Fwww.photoshop.com%2F) --> move to relevant place --> export into png    
 ## Sentiment map
-##### *Inverse distance weighted (IDW) interpolation by ArcGIS of the sentiment classification score and places (a. sentiment classification score of place attribute, b. sentiment classification score/effective read-time of place attribute) by Arcmap*
+##### Inverse distance weighted (IDW) interpolation by ArcGIS of the sentiment classification score and places (a. sentiment classification score of place attribute, b. sentiment classification score/effective read-time of place attribute) by Arcmap
 ![Inverse distance weighted (IDW) interpolation by ArcGIS of the sentiment classification score and places (a. sentiment classification score of place attribute, b. sentiment classification score/effective read-time of place attribute) by Arcmap]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/png/Fig16.png) 
-Toolbox → geostatistical analyst- interpolation analysis – IDW→ input layer“点数据” → Environment-range-“皇城里坊”
-## [Social network](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S7%20File.zip)
+#tips for operation step:  
+Toolbox → geostatistical analyst- interpolation analysis – [IDW](http://desktop.arcgis.com/en/arcmap/latest/tools/3d-analyst-toolbox/idw.htm)→ input layer“点数据” → Environment-range-“皇城里坊”
+## [Social network]
+[S7 File.zip](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S7%20File.zip)(edge.csv, node.csv)  
 if two *character* co-occurr within two adjacent phrases, one edge will be added between them.  
 
-##### *Statistics of characters in co-occurrence network, modularity class, and betweenness centrality by Gephi*
+##### Statistics of characters in co-occurrence network, modularity class, and betweenness centrality by Gephi
 ![Statistics of characters in co-occurrence network, modularity class, and betweenness centrality by Gephi]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/png/Fig17.png)   
+#tips for operation step in [Gephi](https://gephi.org/users/quick-start/):  
+File → Improt spreadsheet → *edge.csv* → charset: GB2312 → Graph Type: indirected    
+run all analysis of "Statistics" on the right manue  
+appearence → nodes → color → Partition → Modularity class → run  
+appearence → nodes → size → Ranking → Betweenness centrality → run  
 
+Network parameters:  
 node：26  
 edge：38  
 Average Degree: 1.462  
@@ -234,15 +264,31 @@ Network Interpretation: undirectedAverage
 Clustering Coefficient: 0.506  
 Total triangles: 6  
 
-## [Spatially embedded network](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S8%20File.zip) 
-it is based on **path.xlsx**
-##### *Network analysis of characters and places in modularity class analysis and weighted degree centrality based on a full-text, spatially embedded, undirected network of characters by Gephi*
+## Spatially embedded network
+[S8 File.zip](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S8%20File.zip)(direct-node.csv, edge.csv, indirect-node.csv) is based on **path.xlsx**
+##### Network analysis of characters and places in modularity class analysis and weighted degree centrality based on a full-text, spatially embedded, undirected network of characters by Gephi
 ![Network analysis of characters and places in modularity class analysis and weighted degree centrality based on a full-text, spatially embedded, undirected network of characters by Gephi]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/png/Fig18.png)   
-##### *[Network analysis of characters and places in closeness centrality and betweenness centrality based on a full-text spatially embedded undirected network of characters by Gephi*
+#tips for operation step in [Gephi](https://gephi.org/users/quick-start/):  
+File → Improt spreadsheet → *edge.csv* → charset: GB2312 → Graph Type: indirected    
+run all analysis of "Statistics" on the right manue  
+appearence → nodes → color → Partition → Modularity class → run  
+appearence → nodes → size → Ranking → Weighed Degree → run  
+##### Network analysis of characters and places in closeness centrality and betweenness centrality based on a full-text spatially embedded undirected network of characters by Gephi
 ![Network analysis of characters and places in closeness centrality and betweenness centrality based on a full-text spatially embedded undirected network of characters by Gephi]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/png/Fig19.png)   
-##### *Network analysis of characters and places in authority and hub analysis based on a full-text spatially embedded directed network of characters by Gephi*
+#tips for operation step in [Gephi](https://gephi.org/users/quick-start/):  
+File → Improt spreadsheet → *edge.csv* → charset: GB2312 → Graph Type: indirected    
+run all analysis of "Statistics" on the right manue  
+appearence → nodes → color → Ranking → Closeness centrality → run  
+appearence → nodes → size → Ranking → Betweenness centrality → run  
+##### Network analysis of characters and places in authority and hub analysis based on a full-text spatially embedded directed network of characters by Gephi
 ![Network analysis of characters and places in authority and hub analysis based on a full-text spatially embedded directed network of characters by Gephi]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/png/Fig20.png)   
+#tips for operation step in [Gephi](https://gephi.org/users/quick-start/):  
+File → Improt spreadsheet → *edge.csv* → charset: GB2312 → Graph Type: directed    
+run all analysis of "Statistics" on the right manue  
+appearence → nodes → color → Ranking → Authority → run  
+appearence → nodes → size → Ranking → Hub → run  
 
+Network parameters:  
 node：16  
 edge：24  
 Average Degree: 3.000  
@@ -260,7 +306,12 @@ Number of Communities: 4
 Network Interpretation: undirectedAverage   
 Clustering Coefficient: 0.474  
 Total triangles: 9  
-
+# Authors
+MA Zhaoyi <ayi987654321@163.com>  
+LIU Shuaishuai <liushuai_1994@sina.com>  
+Dr. HE Jie <janushe@tju.edu.cn>  
+# Acknowledgments
+The authors gratefully acknowledge the Tang Chang’an GIS basemap provided by Prof. Pan Wei from Yunan University and his team from the GIS Lab at Northwest Institute of Historical Environment and Socio-Economic Development of Shaanxi Normal University. The first version of the historical GIS data of Tang Chang’an in this research are from Prof. Timothy Baker of National Dong Hwa University and Dr. Liao Hsiung-Ming of Acadmia Sinica.
 # Reference
 [1]Sarbin TR. The Narrative as a Root Metaphor for Psychology. In: Sarbin TR, editors. Narrative psychology: The storied nature of human conduct. Westport: Praeger; 1986. pp. 3-21. Available from:  https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/reference/01Theodore%20R.%20Sarbin%20-%20Narrative%20Psychology_%20The%20Storied%20Nature%20of%20Human%20Conduct%20%20%20(1986%2C%20Praeger%20Publishers).pdf  
 [2]杨义. [Cultural Interpretation of Chinese Narrative Literature] 中国叙事学的文化阐释. Journal of Guangdong Polytechnic Normal University广东技术师范学院学报. 2003 Jun; 30(03): 27-35. Chinese.Available from:  https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/reference/02%E4%B8%AD%E5%9B%BD%E5%8F%99%E4%BA%8B%E5%AD%A6%E7%9A%84%E6%96%87%E5%8C%96%E9%98%90%E9%87%8A_%E6%9D%A8%E4%B9%89.pdf  
