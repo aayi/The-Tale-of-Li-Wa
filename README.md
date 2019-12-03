@@ -31,9 +31,35 @@ Tag  | n  | nt  | nd  | nl  | nh  | nhf  | nhs  | ns  | nn  | ni  | no  | nhh  |
 ### 3) *Sentiment oritention(so)*  
 The assignment of the SO value is as follows: each positive sentiment expression in the novel such as laugh (欢笑) (v.) and magnificent (瑰奇) (a.) is given an SO value of +1 (172 in total), and each negative sentiment expression such as whimper (呜咽) (v.) and poor (贫窭) (a.) is assigned a SO value of −1 (177 in total).  
 We do two rounds of sentiment orientations (SO) value assignment(`LIU_SO value` and `MA_SO value`).  
-The percentage of consent of two rounds of SO value assignment is 81.5%
+The percentage of consent of two rounds of SO value assignment is 81.5%.  
 
-### 4) `Sentiment classification score`  
+##### Test about the sentiment words having context-dependent orientations:  
+[unigrams_none_stopwords.csv](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/unigrams_none_stopwords.csv)  
+[word2vec_cosine_similarity.zip](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/word2vec_cosine_similarity.zip)  
+[sentiment_network.zip](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/sentiment_network.zip)  
+[weighted outdegree](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/result_weighted%20outdegree%20distribution.xlsx)  
+
+We assumed that the sentiment words in ancient Chinese follow the same logic in today’s sentiment analysis–– sentiment words have context-dependent orientations, i.e., the total distance among words with the same orientation sentiment expression is closer than that among different.  
+Based on the unigrams removing stop words, we complete the training of its [*word2vec*](https://radimrehurek.com/gensim/models/word2vec.html) model with [*gensim*](https://pypi.org/project/gensim/2.1.0/) package (parameters: sg=0, size=50, window=5, min_count=1, iter=20) , and get the correlation(cosine_similarity, -0.4 ~ 1) between each two words. 
+This correlation between word A (Source) and word B (Target) multiplied by the SO value of word B is taking as the weight of the edge, to set up a words’ sentiment network in [Gephi](https://gephi.org/users/quick-start/).  
+
+*edge to gephi.csv*
+
+Source  | Target  | Weight        
+|:---|:---|:---
+ WordA  | WordB  | cosine_similarity*WordB_sentiment  
+ 
+#tips for operation step in [Gephi](https://gephi.org/users/quick-start/):   
+File → Improt spreadsheet → *edge to gephi.csv* → charset: GB2312 → Graph Type: directed    
+run all analysis of "Avg. Weighted Degree" on the right manue  
+Data Laboratory → Nodes → Export Table  
+
+The weighted output distribution calculated by gephi is divided into three different types of manually collected sentient words (1, - 1,0), which are made into scatter diagram by Excel.  
+
+##### Weighted outdegree distribution of words’ sentiment network (a. SO=1, b. SO=-1, c. SO=0)
+![*Weighted outdegree distribution of words’ sentiment network (a. SO=1, b. SO=-1, c. SO=0).*]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/png/Fig23.png)
+
+### 4) *Sentiment classification score*  
 
 ```
 SO_value_effective = IF(sentiment_shifter_-1=-1,SO value * sentiment_shifter_-1,SO value)   
@@ -237,12 +263,16 @@ Toolbox → geostatistical analyst- interpolation analysis – [IDW](http://desk
 [S7 File.zip](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S7%20File.zip)(edge.csv, node.csv)  
 if two *character* co-occurr within two adjacent phrases, one edge will be added between them.  
 
-##### Statistics of characters in co-occurrence network, modularity class, and betweenness centrality by Gephi
-![Statistics of characters in co-occurrence network, modularity class, and betweenness centrality by Gephi]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/png/Fig17.png)   
+##### Statistics of characters in co-occurrence network, Girvan-Newman clustering, and betweenness centrality by Gephi
+![Statistics of characters in co-occurrence network, Girvan-Newman clustering, and betweenness centrality by Gephi]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/png/Fig17-1.png)   
+##### Statistics of characters in co-occurrence network, modularity class, and betweenness centralityy by Gephi
+![Statistics of characters in co-occurrence network, modularity class, and betweenness centralityy by Gephi]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/png/Fig17.png)   
 #tips for operation step in [Gephi](https://gephi.org/users/quick-start/):  
 File → Improt spreadsheet → *edge.csv* → charset: GB2312 → Graph Type: indirected    
+Tools → pluginss → Availible Plugins → Install  
 run all analysis of "Statistics" on the right manue  
 appearence → nodes → color → Partition → Modularity class → run  
+appearence → nodes → color → Partition → Cluster-ID → run  
 appearence → nodes → size → Ranking → Betweenness centrality → run  
 
 Network parameters:  
@@ -254,23 +284,29 @@ Diameter: 5
 Radius: 1  
 Average Path length: 2.265625  
 Density: 0.095  
-Randomize: On  
-Use edge weights: Off  
-Resolution: 0.8  
-Modularity: 0.351  
-Modularity with resolution: 0.218  
-Number of Communities: 6  
-Network Interpretation: undirectedAverage   
+Randomize: On (Modularity)  
+Use edge weights: Off (Modularity)  
+Resolution: 0.8 (Modularity)  
+Modularity: 0.351 (Modularity)  
+Modularity with resolution: 0.218 (Modularity)  
+Number of Communities: 6 (Modularity)  
+Number of communities:4 (*Girvan-Newman* Clustering)  
+Maximum found modularity:0.39129266 (*Girvan-Newman* Clustering)  
+Network Interpretation: undirectedAverage  
 Clustering Coefficient: 0.506  
 Total triangles: 6  
 
 ## Spatially embedded network
 [S8 File.zip](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/S8%20File.zip)(direct-node.csv, edge.csv, indirect-node.csv) is based on **path.xlsx**
-##### Network analysis of characters and places in modularity class analysis and weighted degree centrality based on a full-text, spatially embedded, undirected network of characters by Gephi
+##### Network analysis of characters and places in modularity class analysis (use edge weights: On) and weighted degree centrality based on a full-text, spatially embedded, undirected network of characters by Gephi
 ![Network analysis of characters and places in modularity class analysis and weighted degree centrality based on a full-text, spatially embedded, undirected network of characters by Gephi]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/png/Fig18.png)   
+##### . Network analysis of characters and places in Girvan-Newman clustering analysis and weighted degree centrality based on a full-text, spatially embedded, undirected network of characters by Gephi
+![Network analysis of characters and places in Girvan-Newman clustering analysis and weighted degree centrality based on a full-text, spatially embedded, undirected network of characters by Gephi]( hhttps://github.com/aayi/The-Tale-of-Li-Wa/blob/master/png/Fig24.png)   
 #tips for operation step in [Gephi](https://gephi.org/users/quick-start/):  
 File → Improt spreadsheet → *edge.csv* → charset: GB2312 → Graph Type: indirected    
+Tools → pluginss → Availible Plugins → Install  
 run all analysis of "Statistics" on the right manue  
+appearence → nodes → color → Partition → Cluster-ID → run  
 appearence → nodes → color → Partition → Modularity class → run  
 appearence → nodes → size → Ranking → Weighed Degree → run  
 ##### Network analysis of characters and places in closeness centrality and betweenness centrality based on a full-text spatially embedded undirected network of characters by Gephi
@@ -297,12 +333,14 @@ Diameter: 6
 Radius: 3  
 Average Path length: 2.265625  
 Density: 0.200  
-Randomize: On  
-Use edge weights: Off  
-Resolution: 0.8  
-Modularity: 0.326  
-Modularity with resolution: 0.194  
-Number of Communities: 4  
+Randomize: On (Modularity)    
+Use edge weights: On (Modularity)  
+Resolution: 0.8 (Modularity)  
+Modularity: 0.326 (Modularity)  
+Modularity with resolution: 0.194 (Modularity)  
+Number of Communities: 4 (Modularity)
+Number of communities:4 (*Girvan-Newman* Clustering)  
+Maximum found modularity:0.3949653 (*Girvan-Newman* Clustering)  
 Network Interpretation: undirectedAverage   
 Clustering Coefficient: 0.474  
 Total triangles: 9  
@@ -310,6 +348,7 @@ Total triangles: 9
 MA Zhaoyi <ayi987654321@163.com>  
 LIU Shuaishuai <liushuai_1994@sina.com>  
 Dr. HE Jie <janushe@tju.edu.cn>  
+XIAO Tianyi <137365121@qq.com>  
 # Acknowledgments
 The authors gratefully acknowledge the Tang Chang’an GIS basemap provided by Prof. Pan Wei from Yunan University and his team from the GIS Lab at Northwest Institute of Historical Environment and Socio-Economic Development of Shaanxi Normal University. The first version of the historical GIS data of Tang Chang’an in this research are from Prof. Timothy Baker of National Dong Hwa University and Dr. Liao Hsiung-Ming of Acadmia Sinica.
 # Reference
@@ -344,3 +383,4 @@ The authors gratefully acknowledge the Tang Chang’an GIS basemap provided by P
 [29] Kleinberg JM. Authoritative Sources in a Hyperlinked Environment. Journal of the ACM. 1999 Sep; 46(5): 604-632. Available from: https://www.cs.cornell.edu/home/kleinber/auth.pdf.  
 [30] Moretti F. Atlas of the European Novel: 1800-1900.. London and New York: Verso; 1999. Available from:  https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/reference/30Atlas-of-the-European-Novel-1800-1900.pdf  
 [31] 黄大宏. [A chronicle of Bai Xingjian] 白行简年谱. Wen Xian 文献. 2002 Jul 13; (03): 65-78. Chinese. Available from:  https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/reference/31%E7%99%BD%E8%A1%8C%E7%AE%80%E5%B9%B4%E8%B0%B1_%E9%BB%84%E5%A4%A7%E5%AE%8F.pdf  
+[32] Girvan M, Newman M E J. Community structure in social and biological networks. Proceedings of the national academy of sciences. 2002 Jun; 99(12): 7821-7826. Available from:  Available from:  https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/reference/31%E7%99%BD%E8%A1%8C%E7%AE%80%E5%B9%B4%E8%B0%B1_%E9%BB%84%E5%A4%A7%E5%AE%8F.pdf    
