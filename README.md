@@ -37,7 +37,7 @@ The percentage of consent of two rounds of SO value assignment is 81.5%.
 [unigrams_none_stopwords.csv](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/unigrams_none_stopwords.csv)  
 [word2vec_cosine_similarity.zip](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/word2vec_cosine_similarity.zip)  
 [sentiment_network.zip](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/sentiment_network.zip)  
-[weighted outdegree](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/result_weighted%20outdegree%20distribution.xlsx)  
+[result_weighted_outdegree_distribution.xlsx](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/result_weighted%20outdegree%20distribution.xlsx)  
 
 We assumed that the sentiment words in ancient Chinese follow the same logic in today’s sentiment analysis–– sentiment words have context-dependent orientations, i.e., the total distance among words with the same orientation sentiment expression is closer than that among different.  
 Based on the unigrams removing stop words, we complete the training of its [*word2vec*](https://radimrehurek.com/gensim/models/word2vec.html) model with [*gensim*](https://pypi.org/project/gensim/2.1.0/) package (parameters: sg=0, size=50, window=5, min_count=1, iter=20) , and get the correlation(cosine_similarity, -0.4 ~ 1) between each two words. 
@@ -53,7 +53,6 @@ File → Improt spreadsheet → *edge to gephi.csv* → charset: GB2312 → Grap
 run all analysis of "Avg. Weighted Degree" on the right manue  
 Data Laboratory → Nodes → Export Table#  
 The weighted output distribution calculated by gephi is divided into three different types of manually collected sentient words (1, - 1,0), which are made into scatter diagram by Excel.  
-
 ##### Weighted outdegree distribution of words’ sentiment network (a. SO=1, b. SO=-1, c. SO=0)
 ![*Weighted outdegree distribution of words’ sentiment network (a. SO=1, b. SO=-1, c. SO=0).*]( https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/png/Fig23.png)
 
