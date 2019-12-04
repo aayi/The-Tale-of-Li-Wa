@@ -34,15 +34,15 @@ We do two rounds of sentiment orientations (SO) value assignment(`LIU_SO value` 
 The percentage of consent of two rounds of SO value assignment is 81.5%.  
 
 ##### Test about the sentiment words having context-dependent orientations:  
-[unigrams_none_stopwords.csv](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/unigrams_none_stopwords.csv)  
-[word2vec_cosine_similarity.zip](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/word2vec_cosine_similarity.zip)  
-[sentiment_network.zip](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/sentiment_network.zip)  
+[word2vec_python_code&raw_data](https://github.com/aayi/The-Tale-of-Li-Wa/tree/master/word2vec_python_code)  
+[sentiment_network_Gephi.zip](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/sentiment_network.zip)  
 [result_weighted_outdegree_distribution.xlsx](https://github.com/aayi/The-Tale-of-Li-Wa/blob/master/result_weighted%20outdegree%20distribution.xlsx)  
 
 We assumed that the sentiment words in ancient Chinese follow the same logic in today’s sentiment analysis–– sentiment words have context-dependent orientations, i.e., the total distance among words with the same orientation sentiment expression is closer than that among different.  
-Based on the unigrams removing stop words, we complete the training of its [*word2vec*](https://radimrehurek.com/gensim/models/word2vec.html) model with [*gensim*](https://pypi.org/project/gensim/2.1.0/) package (parameters: sg=0, size=50, window=5, min_count=1, iter=20) , and get the correlation(cosine_similarity, -0.4 ~ 1) between each two words. 
+Based on the unigrams removing stop words, we complete the training of its [*word2vec*](https://radimrehurek.com/gensim/models/word2vec.html) model with [*gensim*](https://pypi.org/project/gensim/2.1.0/) package, and get the correlation(cosine_similarity, -0.4 ~ 1) between each two words.  
+
 This correlation between word A (Source) and word B (Target) multiplied by the SO value of word B is taking as the weight of the edge, to set up a words’ sentiment network in [Gephi](https://gephi.org/users/quick-start/).  
-*edge to gephi.csv*
+#tips for create *edge to gephi.csv*
 
 Source  | Target  | Weight        
 |:---|:---|:---
